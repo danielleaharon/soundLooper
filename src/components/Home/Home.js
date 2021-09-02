@@ -103,7 +103,7 @@ export default class Home extends Component {
         <DialogTitle className="alert-dialog">{"No requests"}</DialogTitle>
         <DialogContent className="alert-dialog">
           <DialogContentText >
-            You must choose from the squares what to play
+          You must select which instruments to play
             <img id='dialog-img' src={DjPlay} alt='logo'/>
           </DialogContentText>
         </DialogContent>
@@ -245,9 +245,7 @@ export default class Home extends Component {
     this.setState({ Playing: true })
     if (!this.state.isPlay) {
       this.setState({ isPlay: true }, () => {
-        // const PendingArr4 = this.state.PendingAudio;
-        // let arr=[];
-        // arr= arr.concat(PendingArr4);
+    
         this.setState({ playAudio: this.state.playAudio.concat(this.state.PendingAudio) })
 
       })

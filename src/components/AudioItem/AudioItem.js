@@ -18,6 +18,7 @@ export default class AudioItem extends Component {
 
   componentDidMount() {
     this.audio.addEventListener('ended', () => {
+      this.currentTime = 0;
       this.props.onFinishLoop();
     }
     );
@@ -27,6 +28,7 @@ export default class AudioItem extends Component {
   componentDidUpdate() {
     if (this.props.play&&this.state.play) { 
       this.audio.play();
+      
      }
 
     if (this.props.stop) this.stop();
