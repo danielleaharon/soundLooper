@@ -4,10 +4,9 @@
     border-radius: 10px;
     border: none;
     position: relative;
-    /* z-index: 10; */
 
 }
-@keyframes example {
+@keyframes djplay {
   
     50%  {    transform: rotate(0.1turn) ;}
 
@@ -19,27 +18,20 @@
 
 }
 #playing{
-    /* content: url('https://api.iconify.design/bx/bxs-star.svg?color=white'); */
 
  
-    animation: example 1s linear infinite reverse;
-background-image: url('../../Icons/djplay2.png');
-/* background-image: url('../../Image/star3.png'); */
-
-background-repeat: no-repeat;
-background-size: cover;
+    animation: djplay 8s linear infinite reverse;
+    background-image: url('../../Icons/djplay2.png');
+    background-repeat: no-repeat;
+    background-size: cover;
     width: 140px;
     height: 140px;
     -webkit-text-stroke: 1px black ;
-    /* transform: rotate(-4deg); */
-    /* background-image: linear-gradient(to right, #db5dac, #d352b6, #c749c1, #b644ce, #9e42dc, #7c61ef, #5277fa, #0089ff, #00acff, #00caff, #00e4fe, #5ffbf1); */
     border-radius: 100px;
     position: absolute;
     opacity: 0.6;
     top: 5px;
     left: 15%;
-    /* top: 0;
-    left: 0; */
     z-index: 1;
     
 }
@@ -57,9 +49,7 @@ position: relative;
 .pause{
     background-color: rgba(206, 205, 205, 0.712)
 }
-/* .audio{
-    background-color: firebrick;
-} */
+
 #icon{
     width: 40%;
     position: absolute;
@@ -75,14 +65,12 @@ position: relative;
         border-radius: 10px;
         border: none;
         position: relative;
-        /* z-index: 10; */
     
     }
     #playing{
-        
     
-    background-repeat: no-repeat;
-    background-size: cover;
+        background-repeat: no-repeat;
+        background-size: cover;
         width: 90px;
         height: 90px;
       
