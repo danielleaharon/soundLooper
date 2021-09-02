@@ -25,7 +25,9 @@ export default class AudioItem extends Component {
 
 
   componentDidUpdate() {
-    if (this.props.play) { this.audio.play(); }
+    if (this.props.play&&this.state.play) { 
+      this.audio.play();
+     }
 
     if (this.props.stop) this.stop();
 
@@ -42,7 +44,7 @@ export default class AudioItem extends Component {
   togglePlay = () => {
 
     this.setState({ play: !this.state.play }, () => {
-      this.state.play ? this.props.addAudio(this.props.index) : this.stopInMiddel();
+      this.state.play? this.props.addAudio(this.props.index) : this.stopInMiddel();
 
     });
   }
@@ -64,8 +66,8 @@ export default class AudioItem extends Component {
 
         </button>
 
-        <img id='icon' src={this.props.icon} onClick={this.togglePlay} />
-        {this.props.play ? <div id='playing'></div> : ''}
+        <img id='icon' src={this.props.icon} onClick={this.togglePlay} alt='icon' />
+        {this.props.play&&this.state.play ? <div id='playing'></div> : ''}
 
       </div>
 

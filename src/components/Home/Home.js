@@ -104,7 +104,7 @@ export default class Home extends Component {
         <DialogContent className="alert-dialog">
           <DialogContentText >
             You must choose from the squares what to play
-            <img id='dialog-img' src={DjPlay} />
+            <img id='dialog-img' src={DjPlay} alt='logo'/>
           </DialogContentText>
         </DialogContent>
         <DialogActions className="alert-dialog">
@@ -116,9 +116,14 @@ export default class Home extends Component {
       </Dialog>
     )
   }
-  addAudio(track) {
-    const PendingArr = this.state.PendingAudio;
-    PendingArr.push(track);
+  async addAudio(track) {
+  
+    console.log('addAudio')
+     const arr=[track];
+
+    this.setState({ PendingAudio: this.state.PendingAudio.concat(arr) });
+    
+
     if (this.state.record) {
 
       const hAdd = this.state.history;
@@ -131,24 +136,36 @@ export default class Home extends Component {
 
   }
   deleteAudio(track) {
-    var PendingArr2 = this.state.PendingAudio;
+    var index = this.state.PendingAudio.indexOf(track);
+    var indexPlay = this.state.playAudio.indexOf(track);
+    
+    if(indexPlay!==-1){
+       this.state.playAudio.splice(indexPlay, 1);
+       this.setState({playAudio:this.state.playAudio})
+       if( this.state.playAudio.length===0) this.stop();
 
-    var index = PendingArr2.indexOf(track);
-
-    if (index !== -1) {
-      PendingArr2.splice(index, 1);
-      this.setState({ PendingAudio: PendingArr2 })
-      if(PendingArr2.length==0) this.stop();
-      if (this.state.record) {
-        const hDelete = this.state.history;
-        const action = 2;
-        var time = new Date().getTime();
-
-        hDelete.push({ action, track, time });
-        this.setState({ history: hDelete })
       }
-    }
 
+  else  if (index !== -1) {
+
+
+      this.state.PendingAudio.splice(index, 1);
+      this.setState({PendingAudio:this.state.PendingAudio})
+
+      console.log(this.state.PendingAudio)
+
+      if( this.state.PendingAudio.length===0) this.stop();
+
+   
+    }
+    if (this.state.record) {
+      const hDelete = this.state.history;
+      const action = 2;
+      var time = new Date().getTime();
+
+      hDelete.push({ action, track, time });
+      this.setState({ history: hDelete })
+    }
 
   }
   onFinishLoop() {
@@ -166,11 +183,11 @@ export default class Home extends Component {
   async Load() {
 
     await this.stop();
-    this.state.history.map((item, index) => {
+    this.state.history.forEach((item, index) => {
 
       switch (item.action) {
         case 1:
-          if (index != 0) {
+          if (index !== 0) {
             setTimeout(() => {
               window.document.getElementById(item.track + '').click();
             }, item.time - this.state.history[0].time);
@@ -180,7 +197,7 @@ export default class Home extends Component {
           break;
 
         case 2:
-          if (index != 0) {
+          if (index !== 0) {
 
             setTimeout(() => {
               window.document.getElementById(item.track + '').click();
@@ -191,10 +208,9 @@ export default class Home extends Component {
 
 
         case 3:
-          if (index != 0) {
+          if (index !== 0) {
 
             setTimeout(() => { this.play(); }, item.time - this.state.history[0].time);
-             if (index == this.state.history) this.setState({ load: false })
 
           }
           else this.play()
@@ -202,7 +218,7 @@ export default class Home extends Component {
 
 
         case 4:
-          if (index != 0) {
+          if (index !== 0) {
 
             setTimeout(() => {
               this.stop();
@@ -212,6 +228,7 @@ export default class Home extends Component {
           else this.stop()
           break;
 
+          default: break;
 
       }
 
@@ -221,15 +238,17 @@ export default class Home extends Component {
   }
   play() {
 
-    if (this.state.PendingAudio.length == 0) {
+    if (this.state.PendingAudio.length === 0) {
       this.setState({ message: true })
       return;
     }
     this.setState({ Playing: true })
     if (!this.state.isPlay) {
       this.setState({ isPlay: true }, () => {
-        const PendingArr4 = this.state.PendingAudio;
-        this.setState({ playAudio: PendingArr4 })
+        // const PendingArr4 = this.state.PendingAudio;
+        // let arr=[];
+        // arr= arr.concat(PendingArr4);
+        this.setState({ playAudio: this.state.playAudio.concat(this.state.PendingAudio) })
 
       })
     }
@@ -278,8 +297,8 @@ export default class Home extends Component {
         </button>
 
         <div id='squers-container'>
-          <button className={this.state.record ? 'record btn-record-off' : 'record btn-record-start'} onClick={this.Record} ><span className={this.state.record ? 'REC red ' : 'REC white'}>REC</span></button>
-          <button hidden={this.state.history.length == 0 || this.state.record} className='btn-record-play' onClick={this.Load} ></button>
+          <button className={this.state.record ? 'record btn-record-off' : 'record btn-record-start'} onClick={this.Record} ><span className='REC'>REC</span></button>
+          <button hidden={this.state.history.length === 0 || this.state.record} className='btn-record-play' onClick={this.Load} ></button>
           {this.state.allAudio.map((item, index) => {
             return <AudioItem id={index} url={item.src} icon={item.icon} key={index} index={index} addAudio={this.addAudio} deleteAudio={this.deleteAudio} play={this.state.playAudio.includes(index) ? this.state.Playing : false} onFinishLoop={this.onFinishLoop} stop={!this.state.Playing} />
           })}

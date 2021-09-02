@@ -120,23 +120,23 @@
     top: 200px;
     border: none;
     width: 60px;
+    padding-right: 20px;
     height: 60px;
 
 }
 @keyframes record {
   
-   
     100%  {background-size: 130% ; }
 
 
   }
 .btn-record-start{
-    
     background: url('https://api.iconify.design/fluent/record-24-regular.svg?color=white') no-repeat center center / contain;    /* background-size: 100%; */
 }
 .btn-record-off{
     animation: record 1s backwards infinite reverse;
     border: 5px white solid;
+    display: block;
     padding: 0px;
     border-radius: 100px;
     background: url('https://api.iconify.design/bi/record-fill.svg?color=red') no-repeat center center / contain;
@@ -146,6 +146,11 @@
     margin-top: 50px;
     font-size: 15px;
     font-weight: bold;
+    position: absolute;
+    left: 7px;
+    top: -30px;
+    color: white;
+
     -webkit-text-stroke: 1px rgba(0, 0, 0, 0.507);
 
 }
@@ -161,13 +166,8 @@
     background-repeat: no-repeat;
     background-color: transparent;
 }
-.red{
-    color: #D53B3B;
-    margin-left: 60px;
-}
-.white{
-    color: white;
-}
+
+
 @media only screen and (max-width: 768px) {
 
     #squers-container{
